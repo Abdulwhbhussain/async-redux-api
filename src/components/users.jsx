@@ -1,9 +1,19 @@
-import React from 'react'
+import React from 'react';
+import { useSelector } from 'react-redux';
 
-function users() {
+function Users() {
+  const { users, isLoading, error } = useSelector((state) => state.users)
+  console.log(users, isLoading, error);
+
+  if (isLoading) return <div>Loading...</div>
+
+  if (error) return <div>{error}</div>
+
   return (
-    <div>users</div>
+    <ul>{users.map((user) =>{
+      return <li key={user.id}>{user.name.first} {user.name.last}</li>
+    })}</ul>
   )
 }
 
-export default users
+export default Users;
